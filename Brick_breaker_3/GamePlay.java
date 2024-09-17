@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.Font;
 import javax.swing.Timer;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -55,6 +56,35 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener{
 
         g.setColor(Color.green);
         g.fillOval(ballposX , ballposY, 20, 20);
+
+        g.setColor(Color.black);
+        g.setFont(new Font("serif", Font.BOLD, 25));
+        g.drawString("" + score, 590, 30);
+
+        if (totalBricks <= 0){
+            play = false;
+            ballXdir = 0;
+            ballYdir = 0;
+            g.setColor(Color.green);
+            g.setFont(new Font("serif", Font.BOLD, 30));
+            g.drawString("You won, score: " + score, 190, 300);
+
+            g.setFont(new Font("serif", Font.BOLD, 20));
+            g.drawString("Press enter to restart!", 230, 350); 
+        }
+
+
+        if (ballposY > 570){
+            play = false;
+            ballXdir = 0;
+            ballYdir = 0;
+            g.setColor(Color.RED);
+            g.setFont(new Font("serif", Font.BOLD, 30));
+            g.drawString("Game Over, score: " + score, 190, 300);
+
+            g.setFont(new Font("serif", Font.BOLD, 20));
+            g.drawString("Press enter to restart.", 230, 350); 
+        }
 
         g.dispose();
 
@@ -142,16 +172,39 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener{
 
         }
 
+            if (e.getKeyCode() == KeyEvent.VK_ENTER){
+                if (!play){
+                    play = true;
+                    ballposX = 120;
+                    ballposY = 350;
+                    ballXdir = -1;
+                    ballYdir = -2;
+                    score = 0;
+                    totalBricks = 21;
+                    map = new MapGenerator(3, 7);
+    
+                    repaint();
+                }
+            }
+
         }
+
+    
 
         public void moveLeft(){
             play = true;
             playerX -= 20;
         }
+
+
+       
+    
             public void moveRight(){
                 play = true;
                 playerX += 20;
             }
+
+           
         //throw new UnsupportedOperationException("Unimplemented method 'keyTyped'");
     
     @Override
