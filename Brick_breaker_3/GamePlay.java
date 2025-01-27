@@ -20,14 +20,14 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener{
     private int totalBricks = 21;
 
     private Timer timer;
-    private int delay = 8;
+    private int delay =8;
 
     private int playerX = 310;
 
     private int ballposX = 120;
     private int ballposY = 350;
-    private int ballXdir = -1;
-    private int ballYdir = -2;
+    private int ballXdir = -2;
+    private int ballYdir = -3;
 
     private MapGenerator map;
 
@@ -123,6 +123,11 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener{
                             }else {
                                 ballYdir = -ballYdir;
                             }
+
+                            if (totalBricks == 10) { // When 10 bricks are left, increase speed
+                                ballXdir += ballXdir > 0 ? 1 : -1;
+                                ballYdir += ballYdir > 0 ? 1 : -1;
+                            }
                            
                         }
                     }
@@ -193,7 +198,7 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener{
 
         public void moveLeft(){
             play = true;
-            playerX -= 20;
+            playerX -= 30;
         }
 
 
@@ -201,7 +206,7 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener{
     
             public void moveRight(){
                 play = true;
-                playerX += 20;
+                playerX += 30;
             }
 
            
